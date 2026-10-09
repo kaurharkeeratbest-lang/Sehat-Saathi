@@ -21,6 +21,7 @@ export default function Onboarding() {
   const [contactPhone, setContactPhone] = useState("");
   const [consent, setConsent] = useState(false);
   const [notifStatus, setNotifStatus] = useState<"idle" | "granted" | "denied">("idle");
+  const isExpoGo = require("expo-constants").default?.appOwnership === "expo";
 
   const next = (s: Step) => setStep(s);
   const finish = async () => {
@@ -29,9 +30,15 @@ export default function Onboarding() {
   };
 
   const requestNotif = async () => {
+    // In Expo Go (SDK 53+), expo-notifications remote push is removed and
+    // throws on access. Detect Expo Go and skip; feature still works in
+    // native dev/production builds.
+    const Constants = require("expo-constants").default;
+    if (Constants?.appOwnership === "expo") {
+      setNotifStatus("denied");
+      return;
+    }
     try {
-      // Lazy require: expo-notifications' remote push module is removed from Expo Go (SDK 53+).
-      // Local scheduled notifications still work in a dev/production build.
       const Notifications = require("expo-notifications");
       const res = await Notifications.requestPermissionsAsync();
       setNotifStatus(res.granted || res.ios?.status === 3 ? "granted" : "denied");
@@ -135,11 +142,20 @@ export default function Onboarding() {
           <ScrollView contentContainerStyle={{ padding: spacing.lg, gap: spacing.md }}>
             <H2>{t(language, "notifTitle")}</H2>
             <Body>{t(language, "notifDesc")}</Body>
-            {notifStatus === "denied" && <Caption style={{ color: colors.warning }}>{t(language, "notifDenied")}</Caption>}
-            <Btn testID="notif-allow-btn" label={t(language, "allow")} onPress={requestNotif} />
+            {isExpoGo && (
+              <Caption style={{ color: colors.warning }}>
+                {language === "hi"
+                  ? "Expo Go me notifications test nahi ho sakte. Build banane ke baad kaam karenge."
+                  : "Notifications cannot be tested inside Expo Go. They work in a production build."}
+              </Caption>
+            )}
+            {notifStatus === "denied" && !isExpoGo && <Caption style={{ color: colors.warning }}>{t(language, "notifDenied")}</Caption>}
+            {!isExpoGo && (
+              <Btn testID="notif-allow-btn" label={t(language, "allow")} onPress={requestNotif} />
+            )}
             <Btn
               testID="notif-continue-btn"
-              variant="ghost"
+              variant={isExpoGo || notifStatus === "granted" ? "primary" : "ghost"}
               label={notifStatus === "granted" ? t(language, "continue") : t(language, "skip")}
               onPress={() => next("emergency")}
             />
