@@ -4,7 +4,6 @@ import { View, ScrollView, Pressable, Text, Switch, FlatList, Alert } from "reac
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Icon from "@react-native-vector-icons/material-design-icons";
-import * as Notifications from "expo-notifications";
 import { Btn, Card, GradientBg, H1, H2, Body, Caption, Label, TxtInput, Row, H3 } from "@/src/ui";
 import { colors, spacing, radius, fontSize } from "@/src/theme";
 import { LANGUAGES, t, applyRTL } from "@/src/i18n";
@@ -31,6 +30,9 @@ export default function Onboarding() {
 
   const requestNotif = async () => {
     try {
+      // Lazy require: expo-notifications' remote push module is removed from Expo Go (SDK 53+).
+      // Local scheduled notifications still work in a dev/production build.
+      const Notifications = require("expo-notifications");
       const res = await Notifications.requestPermissionsAsync();
       setNotifStatus(res.granted || res.ios?.status === 3 ? "granted" : "denied");
     } catch {
