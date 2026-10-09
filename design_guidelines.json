@@ -1,0 +1,229 @@
+{
+  "app_name": "Sehat Saathi",
+  "personality": "1 iOS-Native Clean structure fused with 4 Tactile layout (Senior-First)",
+  "personality_one_liner": "A calm, highly readable, and trustworthy health companion designed explicitly for senior Indian users with oversized tap targets, zero abstract icons, and gentle tactile surfaces.",
+  "color": {
+    "surface": "#FFFFFF",
+    "onSurface": "#0F172A",
+    "surfaceSecondary": "#F5F7FA",
+    "onSurfaceSecondary": "#1E293B",
+    "surfaceTertiary": "#E9EFF5",
+    "onSurfaceTertiary": "#334155",
+    "surfaceInverse": "#1E293B",
+    "onSurfaceInverse": "#FFFFFF",
+    "brand": "#E85D04",
+    "onBrand": "#FFFFFF",
+    "brandPrimary": "#E85D04",
+    "onBrandPrimary": "#FFFFFF",
+    "brandSecondary": "#F3C8A5",
+    "onBrandSecondary": "#4A1C00",
+    "brandTertiary": "#FBE4D0",
+    "onBrandTertiary": "#4A1C00",
+    "success": "#2E854B",
+    "onSuccess": "#FFFFFF",
+    "warning": "#D97706",
+    "onWarning": "#FFFFFF",
+    "error": "#DC2626",
+    "onError": "#FFFFFF",
+    "info": "#0284C7",
+    "onInfo": "#FFFFFF",
+    "border": "#E2E8F0",
+    "borderStrong": "#CBD5E1",
+    "divider": "#E2E8F0",
+    "muted": "#475569",
+    "user_defined_gradients": {
+      "peach_orange": "linear-gradient(145deg, #FFF7ED 0%, #FBE4D0 50%, #F3C8A5 100%)",
+      "cloud_white": "linear-gradient(145deg, #FFFFFF 0%, #F5F7FA 60%, #E9EFF5 100%)",
+      "sage_emerald": "linear-gradient(145deg, #E5F7E9 0%, #A9E5BD 50%, #65C98B 100%)",
+      "sky_ocean": "linear-gradient(145deg, #EAF4FF 0%, #BBDCFB 50%, #82B8F0 100%)",
+      "calendar_green": "linear-gradient(135deg, #E5F7E9 0%, #A9E5BD 48%, #65C98B 100%)",
+      "calendar_yellow": "linear-gradient(135deg, #FFF8D9 0%, #FFE7A3 48%, #F6C66A 100%)",
+      "calendar_coral": "linear-gradient(135deg, #FFE8E3 0%, #FFB8AD 48%, #F27B76 100%)",
+      "calendar_pale_grey": "linear-gradient(135deg, #F4F6F8 0%, #E5EAF0 52%, #D5DDE6 100%)"
+    }
+  },
+  "typography": {
+    "displayFontFamily": "Figtree",
+    "textFontFamily": "Figtree",
+    "scale": {
+      "sm": 16,
+      "base": 18,
+      "lg": 22,
+      "xl": 28,
+      "2xl": 36
+    }
+  },
+  "spacing": {
+    "rule": "Senior-first generous spacing. Ensure minimum 16px padding around all interactive elements to prevent accidental taps.",
+    "xs": 8,
+    "sm": 12,
+    "md": 16,
+    "lg": 24,
+    "xl": 32,
+    "2xl": 48,
+    "3xl": 64
+  },
+  "radius_tokens": {
+    "sm": 8,
+    "md": 16,
+    "lg": 24,
+    "pill": 999
+  },
+  "shadow_tier": "2",
+  "navigation": "bottom_tabs",
+  "icon_set": "Phosphor",
+  "glassmorphism": {
+    "enabled": "false",
+    "do's": [
+      "Avoid glassmorphism. Use solid tactile cards to ensure high readability for seniors with vision degradation."
+    ],
+    "dont's": [
+      "Do not use blur surfaces as they reduce contrast and clarity for older adults."
+    ]
+  },
+  "platform_libraries": {
+    "glass": {
+      "ios": "Solid surfaceSecondary",
+      "android": "Solid surfaceSecondary",
+      "low_end_android_fallback": "solid surfaceSecondary"
+    },
+    "image": "expo-image",
+    "blur": "expo-blur",
+    "bottom_sheet": "@gorhom/bottom-sheet",
+    "animation": "react-native-reanimated",
+    "gesture": "react-native-gesture-handler"
+  },
+  "haptics": {
+    "button_press": "light",
+    "dose_confirmed": "success",
+    "error_state": "error"
+  },
+  "screens": [
+    {
+      "name": "Onboarding",
+      "purpose": "A gentle, multi-step flow capturing language (22 Indian languages), voice assistant preferences, notification permissions, and emergency contacts.",
+      "states": {
+        "loading": "Centered prominent spinner with text 'Kripya pratiksha karein...'",
+        "empty": "Not applicable.",
+        "error": "Clear, plain-language error with a large 'Retry' button."
+      },
+      "layout": "One question per screen. Large sticky CTA pinned to the bottom. Uses `cloud_white` user-defined gradient for background."
+    },
+    {
+      "name": "Home Dashboard",
+      "purpose": "Provides an immediate view of the very next medicine to take, alongside today's remaining schedule and daily progress.",
+      "states": {
+        "loading": "Large skeleton cards.",
+        "empty": "Illustration of a calm setting with text 'No medicines scheduled today.'",
+        "error": "Error message with a large refresh button."
+      },
+      "layout": "Top section: Warm greeting + Progress ring. Middle: 'Next Medicine' hero card (using `peach_orange` gradient, large time/dose, prominent 'Taken' button). Bottom: Vertical list of today's remaining doses."
+    },
+    {
+      "name": "Medicines List",
+      "purpose": "A comprehensive directory of all added medicines with their schedules.",
+      "states": {
+        "loading": "List skeleton.",
+        "empty": "Friendly illustration with text 'Your medicine box is empty.' + Large primary 'Add Medicine' CTA.",
+        "error": "Error loading medicines + Retry button."
+      },
+      "layout": "Single-column list of chunky cards. Each card displays medicine name (large text), icon, and schedule summary. Floating action button for 'Add' with an explicit text label, not just an icon."
+    },
+    {
+      "name": "Add/Edit Medicine",
+      "purpose": "Allows users (or their caretakers) to add a new medication, set schedule, and optional photo.",
+      "states": {
+        "loading": "Spinner during save.",
+        "empty": "N/A",
+        "error": "Field-specific red error messages in plain text."
+      },
+      "layout": "Single-column form. Persistent labels above inputs (no floating labels). Large touch target selectors for time. Sticky 'Save Medicine' button at the bottom."
+    },
+    {
+      "name": "Medicine Detail",
+      "purpose": "Shows full info of a specific medicine, history, and allows editing or deleting.",
+      "states": {
+        "loading": "Skeleton UI.",
+        "empty": "N/A",
+        "error": "Failed to load details + Retry button."
+      },
+      "layout": "Large hero photo/icon of the medicine. Chunky rows displaying dosage, frequency, and instructions. 'Edit' and 'Delete' presented as large distinct buttons."
+    },
+    {
+      "name": "Camera Scanner (OCR)",
+      "purpose": "Helps users scan medicine strips/boxes to auto-fill details.",
+      "states": {
+        "loading": "Scanning animation with text 'Reading medicine name...'",
+        "empty": "N/A",
+        "error": "Could not read text. Large 'Try Again' or 'Enter Manually' buttons."
+      },
+      "layout": "Full-screen camera view with a clear central bounding box. A massive, high-contrast shutter button at the bottom."
+    },
+    {
+      "name": "Scheduled Reminder & Dose Confirmation",
+      "purpose": "Full-screen interruption when it's time to take a pill, forcing a confirmation response.",
+      "states": {
+        "loading": "N/A",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "Uses `peach_orange` or `sage_emerald` background gradient. Huge central medicine icon and name. Two massive horizontal buttons: 'Taken' (Green) and 'Skip' (Outlined/Secondary)."
+    },
+    {
+      "name": "Monthly Gradient Calendar",
+      "purpose": "Provides a bird's-eye view of medication adherence using the strict user-defined status gradients.",
+      "states": {
+        "loading": "Calendar grid skeleton.",
+        "empty": "N/A",
+        "error": "Failed to load history + Retry."
+      },
+      "layout": "Standard grid layout, but cells are large. Each cell uses the exact specified gradients (calendar_green = all taken, calendar_yellow = partial, calendar_coral = missed, calendar_pale_grey = none scheduled). Today has a prominent sky-blue outline (`#0284C7`)."
+    },
+    {
+      "name": "AI Voice Assistant",
+      "purpose": "Allows users to ask questions or log medicines using voice in their native language.",
+      "states": {
+        "loading": "Pulsing animation indicating 'Listening...'",
+        "empty": "N/A",
+        "error": "I couldn't hear you. Please tap to try again."
+      },
+      "layout": "Minimalist layout. Dominant central microphone button (40% of screen width). Real-time large transcription text below."
+    },
+    {
+      "name": "Settings",
+      "purpose": "Manage app preferences, language, notifications, and emergency contacts.",
+      "states": {
+        "loading": "N/A",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "Simple list view. Rows are minimum 64px tall. Icons are always paired with text. Clear separation between sections (Language, Notifications, Emergency)."
+    }
+  ],
+  "images": {
+    "welcome_illustration": {
+      "url": "https://images.unsplash.com/photo-1625690988276-0a7b0cdf3d5d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwxfHxoYXBweSUyMGVsZGVybHklMjBpbmRpYW4lMjBjb3VwbGV8ZW58MHx8fHwxNzkxNTY2OTE1fDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Happy elderly indian couple hugging outdoors"
+    },
+    "medicine_scan_placeholder": {
+      "url": "https://images.unsplash.com/photo-1522335579687-9c718c5184d7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTB8MHwxfHNlYXJjaHwxfHxtZWRpY2luZSUyMGJveCUyMHNjYW58ZW58MHx8fHwxNzkxNTY2OTE1fDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Medication capsule lot"
+    },
+    "voice_assistant_abstract": {
+      "url": "https://images.unsplash.com/photo-1646614871834-07ca6f701ea8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODh8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGNhbG0lMjBtaWNyb3Bob25lJTIwdm9pY2UlMjBhc3Npc3RhbnR8ZW58MHx8fHwxNzkxNTY2OTE1fDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Abstract calm soundwave visual"
+    }
+  },
+  "instructions_to_main_agent": [
+    "SENIOR-FIRST UX: The baseline font size MUST be 18px (`base: 18`), scaling up to 36px. Do not use small captions.",
+    "TOUCH TARGETS: Every tappable element (buttons, list rows, tabs) MUST have a minimum height of 44pt (ideally 64pt for this demographic). Apply generous padding.",
+    "NO ORPHAN ICONS: Never use icons without text labels. Abstract icons are confusing for older adults. Always pair an icon with a descriptive string.",
+    "GRADIENTS: The exact `user_defined_gradients` (peach_orange, cloud_white, sage_emerald, sky_ocean, and the 4 calendar states) MUST be used exactly as provided via expo-linear-gradient. Do not approximate them with hex codes.",
+    "CALENDAR SPECIFICS: The calendar cells must use the exact status gradients. A cell with 'today' must have a sky-blue border overlaid on top of the status gradient.",
+    "CONTRAST: Text over any colored surface must maintain strict WCAG AAA contrast (use onBrand, onSuccess, etc.).",
+    "LAYOUT: Forms must use single-column layouts with persistent labels (no floating labels). Avoid horizontal scrolling wherever possible.",
+    "RTL & LOCALIZATION: Use Expo Localization. Keep layouts flex-friendly for Right-to-Left (RTL) support like Urdu.",
+    "Avoid Glassmorphism entirely. Ensure solid backgrounds for absolute readability.",
+    "Include explicit multisensory feedback via Haptics for dose confirmations and button interactions."
+  ]
+}
